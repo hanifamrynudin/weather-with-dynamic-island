@@ -14,6 +14,10 @@
 		2B2BB26528BFB36600A8B2A3 /* wheaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2BB26428BFB36600A8B2A3 /* wheaterTests.swift */; };
 		2B2BB26F28BFB36600A8B2A3 /* wheaterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2BB26E28BFB36600A8B2A3 /* wheaterUITests.swift */; };
 		2B2BB27128BFB36600A8B2A3 /* wheaterUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2BB27028BFB36600A8B2A3 /* wheaterUITestsLaunchTests.swift */; };
+		2B2BB27F28C0524300A8B2A3 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2BB27E28C0524300A8B2A3 /* LocationManager.swift */; };
+		2B2BB28128C06B3800A8B2A3 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2BB28028C06B3800A8B2A3 /* WeatherData.swift */; };
+		2B2BB28328C06DB300A8B2A3 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2BB28228C06DB300A8B2A3 /* WeatherViewModel.swift */; };
+		2B2BB28528C06E0000A8B2A3 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2BB28428C06E0000A8B2A3 /* WeatherModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +48,10 @@
 		2B2BB26A28BFB36600A8B2A3 /* wheaterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = wheaterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B2BB26E28BFB36600A8B2A3 /* wheaterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wheaterUITests.swift; sourceTree = "<group>"; };
 		2B2BB27028BFB36600A8B2A3 /* wheaterUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wheaterUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		2B2BB27E28C0524300A8B2A3 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		2B2BB28028C06B3800A8B2A3 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
+		2B2BB28228C06DB300A8B2A3 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
+		2B2BB28428C06E0000A8B2A3 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +102,8 @@
 		2B2BB25228BFB36300A8B2A3 /* wheater */ = {
 			isa = PBXGroup;
 			children = (
+				2BE35B7D28C1978600133DFB /* ViewModel */,
+				2B2BB27D28C0522400A8B2A3 /* Model */,
 				2B2BB25328BFB36300A8B2A3 /* wheaterApp.swift */,
 				2B2BB25528BFB36300A8B2A3 /* ContentView.swift */,
 				2B2BB25728BFB36600A8B2A3 /* Assets.xcassets */,
@@ -125,6 +135,24 @@
 				2B2BB27028BFB36600A8B2A3 /* wheaterUITestsLaunchTests.swift */,
 			);
 			path = wheaterUITests;
+			sourceTree = "<group>";
+		};
+		2B2BB27D28C0522400A8B2A3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2B2BB27E28C0524300A8B2A3 /* LocationManager.swift */,
+				2B2BB28028C06B3800A8B2A3 /* WeatherData.swift */,
+				2B2BB28428C06E0000A8B2A3 /* WeatherModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2BE35B7D28C1978600133DFB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2B2BB28228C06DB300A8B2A3 /* WeatherViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,6 +287,10 @@
 			files = (
 				2B2BB25628BFB36300A8B2A3 /* ContentView.swift in Sources */,
 				2B2BB25428BFB36300A8B2A3 /* wheaterApp.swift in Sources */,
+				2B2BB28328C06DB300A8B2A3 /* WeatherViewModel.swift in Sources */,
+				2B2BB28128C06B3800A8B2A3 /* WeatherData.swift in Sources */,
+				2B2BB28528C06E0000A8B2A3 /* WeatherModel.swift in Sources */,
+				2B2BB27F28C0524300A8B2A3 /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,6 +452,7 @@
 				DEVELOPMENT_TEAM = QSYN34ABQK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "\"We need your location to know the weather\"";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -449,6 +482,7 @@
 				DEVELOPMENT_TEAM = QSYN34ABQK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "\"We need your location to know the weather\"";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
