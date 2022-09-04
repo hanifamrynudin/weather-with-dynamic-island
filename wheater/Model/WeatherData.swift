@@ -6,11 +6,18 @@
 //
 
 import Foundation
+import Foundation
 
+struct WeatherDataMain: Decodable {
+    let weatherData: [WeatherData]
+}
 
 struct WeatherData: Decodable {
     
     let name: String
+    let wind: Wind
+    let main: Main
+    let weather: [Weather]
     
 }
 
@@ -19,7 +26,7 @@ struct Wind: Decodable {
 }
 
 struct Main: Decodable {
-    let temp: Double
+    let temp: Float
     let humidity: Int
 }
 
@@ -27,3 +34,4 @@ struct Weather: Decodable {
     let main: String
     let id: Int
 }
+

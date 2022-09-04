@@ -22,10 +22,7 @@ struct ContentView: View {
             BackgroundColor()
             ScrollView {
                 VStack{
-                    TopBar(nameCity: $name, nameCitySaved: $nameSaved)
-                    CityName(nameCity: $nameSaved)
-                    WeatherImage()
-                    WeatherDetail()
+                    Screen(nameCity: $name, nameCitySaved: $nameSaved)
                     Spacer()
                 }
                 
@@ -71,9 +68,10 @@ struct BackgroundColor: View {
     }
 }
 
-struct TopBar: View {
+struct Screen: View {
     
     @StateObject private var vm = WeatherViewModel()
+    @StateObject var locationManager = LocationManager()
     
     @Binding var nameCity: String
     @Binding var nameCitySaved: String
@@ -83,6 +81,9 @@ struct TopBar: View {
         HStack{
             Button(action: {
                 saveName()
+                if let location = locationManager.location {
+                    vm.fetchWeather(latitude: location.latitude, longitude: location.longitude)
+                }
                 nameCity = ""
                 UIApplication.shared.endEditing()
             }) {
@@ -123,49 +124,23 @@ struct TopBar: View {
         }
         .padding()
         
-    }
-    
-    func saveName() {
-        nameCitySaved = nameCity
-    }
-    
-}
-
-struct CityName: View {
-    
-    @Binding var nameCity: String
-    
-    
-    var body: some View {
         VStack{
-            Text("\(nameCity)")
+            Text(vm.weatherViewModel.last?.nameCity ?? "City")
                 .font(.system(size: 32, weight: .bold, design: .default))
                 .foregroundColor(.white)
-                .padding()
         }
-    }
-}
-
-struct WeatherImage: View {
-    var body: some View {
+        
         VStack{
             
-            Image(systemName: weatherData.weatherImage)
+            Image(systemName: vm.weatherViewModel.last?.conditionName ??  "cloud.sun.fill")
                 .renderingMode(.original)
                 .resizable()
                 .foregroundColor(.white)
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 160.0, height: 160.0)
+                .padding()
             
         }
-    }
-}
-
-struct WeatherDetail: View {
-    
-    @StateObject private var vm = WeatherViewModel()
-    
-    var body: some View {
         
         ZStack{
             GlassBackGround(width: 335.0, height: 300.0, color: .white)
@@ -179,12 +154,12 @@ struct WeatherDetail: View {
                         .font(.system(size: 18, weight: .light, design: .default))
                         .foregroundColor(.white)
                 }
-                Text("\(weatherData.temp)°")
+                Text(vm.weatherViewModel.last?.temperatureString ?? "28")
                     .font(.system(size: 100, weight: .medium, design: .default))
                     .foregroundColor(.white)
                     .padding(.top)
                 
-                Text("Cloudy")
+                Text(vm.weatherViewModel.last?.desc ?? "Cloudy")
                     .font(.system(size: 24, weight: .medium, design: .default))
                     .foregroundColor(.white)
                     .padding(.bottom)
@@ -206,7 +181,7 @@ struct WeatherDetail: View {
                         .foregroundColor(.white)
                         .padding()
                     
-                    Text("\(weatherData.wind) Km/h")
+                    Text(vm.weatherViewModel.last?.windString ?? "10.8")
                         .font(.system(size: 18, weight: .light, design: .default))
                         .foregroundColor(.white)
                         .padding()
@@ -224,12 +199,12 @@ struct WeatherDetail: View {
                         .foregroundColor(.white)
                         .padding()
                     
-                    Text("|")
+                    Text(" |")
                         .font(.system(size: 18, weight: .light, design: .default))
                         .foregroundColor(.white)
                         .padding()
                     
-                    Text("\(weatherData.hum) %     ")
+                    Text(vm.weatherViewModel.last?.humidityString ?? "60")
                         .font(.system(size: 18, weight: .light, design: .default))
                         .foregroundColor(.white)
                         .padding()
@@ -237,7 +212,17 @@ struct WeatherDetail: View {
             }
             
         }
+        .onAppear{
+            if let location = locationManager.location {
+                vm.fetchWeather(latitude: location.latitude, longitude: location.longitude)
+            }
+        }
     }
+    
+    func saveName() {
+        nameCitySaved = nameCity
+    }
+    
 }
 
 extension UIApplication {
@@ -245,16 +230,3 @@ extension UIApplication {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
-
-
-struct Weathers {
-    let temp: String
-    let weatherImage: String
-    let main: String
-    let wind: String
-    let hum: String
-}
-
-
-let weatherData =  Weathers(temp: "28", weatherImage: "cloud.sun.fill", main: "Clouds", wind: "1.3", hum: "82")
-
