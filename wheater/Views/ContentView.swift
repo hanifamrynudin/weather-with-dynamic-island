@@ -16,8 +16,6 @@ struct ContentView: View {
     
     
     var body: some View {
-        
-        
         ZStack{
             BackgroundColor()
             ScrollView {
@@ -80,6 +78,7 @@ struct Screen: View {
     var body: some View {
         HStack{
             Button(action: {
+                locationManager.requestLocation()
                 saveName()
                 if let location = locationManager.location {
                     vm.fetchWeather(latitude: location.latitude, longitude: location.longitude)
@@ -213,6 +212,7 @@ struct Screen: View {
             
         }
         .onAppear{
+            locationManager.requestLocation()
             if let location = locationManager.location {
                 vm.fetchWeather(latitude: location.latitude, longitude: location.longitude)
             }

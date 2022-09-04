@@ -51,7 +51,7 @@
 		2B2BB28028C06B3800A8B2A3 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		2B2BB28228C06DB300A8B2A3 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 		2B2BB28428C06E0000A8B2A3 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
-		2B7631FB28C412DA00AE686C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		2B7631FB28C412DA00AE686C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B7631FC28C42E1200AE686C /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,13 +103,13 @@
 		2B2BB25228BFB36300A8B2A3 /* wheater */ = {
 			isa = PBXGroup;
 			children = (
-				2B7631FB28C412DA00AE686C /* Info.plist */,
-				2BE35B7D28C1978600133DFB /* ViewModel */,
 				2B2BB27D28C0522400A8B2A3 /* Model */,
-				2B2BB25328BFB36300A8B2A3 /* wheaterApp.swift */,
-				2B2BB25528BFB36300A8B2A3 /* ContentView.swift */,
+				2B76323F28C447A400AE686C /* Views */,
+				2BE35B7D28C1978600133DFB /* ViewModel */,
 				2B2BB25728BFB36600A8B2A3 /* Assets.xcassets */,
+				2B2BB25328BFB36300A8B2A3 /* wheaterApp.swift */,
 				2B2BB25928BFB36600A8B2A3 /* Preview Content */,
+				2B7631FB28C412DA00AE686C /* Info.plist */,
 			);
 			path = wheater;
 			sourceTree = "<group>";
@@ -146,6 +146,14 @@
 				2B2BB28428C06E0000A8B2A3 /* WeatherModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		2B76323F28C447A400AE686C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2B2BB25528BFB36300A8B2A3 /* ContentView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		2BE35B7D28C1978600133DFB /* ViewModel */ = {
@@ -455,7 +463,6 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = wheater/Info.plist;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need your location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -486,7 +493,6 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = wheater/Info.plist;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need your location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -16,14 +16,22 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     override init() {
         super.init()
+        
+        manager.requestWhenInUseAuthorization()
+        
         manager.delegate = self
     }
 
     func requestLocation() {
         manager.requestLocation()
+        print(manager.location?.coordinate.latitude ?? "test")
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         location = locations.first?.coordinate
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
     }
 }
