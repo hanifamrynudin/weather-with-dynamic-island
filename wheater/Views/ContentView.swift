@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import ActivityKit
 
 struct ContentView: View {
     
+    @State var currentID: String = ""
     @StateObject private var vm = WeatherViewModel()
     
     @State var name: String = ""
@@ -24,6 +26,17 @@ struct ContentView: View {
                     Spacer()
                 }
                 
+                .onChange(of: nameSaved){ newValue in
+                    if let activity = Activity.activities.first(where: {(activity: Activity<WheaterAttributes>) in
+                        activity.id == currentID
+                    }){
+                        var updatedState = activity.contentState
+                        updatedState.nameCity = nameSaved
+                        Task{
+                            await activity.update(using: updatedState)
+                        }
+                    }
+                }
             }
         }
     }
@@ -68,6 +81,7 @@ struct BackgroundColor: View {
 
 struct Screen: View {
     
+    @State var currentID: String = ""
     @StateObject private var vm = WeatherViewModel()
     @StateObject var locationManager = LocationManager()
     
@@ -80,6 +94,8 @@ struct Screen: View {
             Button(action: {
                 locationManager.requestLocation()
                 saveName()
+                removeActivity()
+                addLiveActivity()
                 if let location = locationManager.location {
                     vm.fetchWeather(latitude: location.latitude, longitude: location.longitude)
                 }
@@ -105,12 +121,16 @@ struct Screen: View {
                 .onSubmit {
                     saveName()
                     vm.fetchWeather(CityName: nameCitySaved)
+                    removeActivity()
+                    addLiveActivity()
                     nameCity = ""
                 }
                 .submitLabel(.done)
             Button(action: {
                 saveName()
                 vm.fetchWeather(CityName: nameCitySaved)
+                removeActivity()
+                addLiveActivity()
                 nameCity = ""
                 UIApplication.shared.endEditing()
             }) {
@@ -211,11 +231,37 @@ struct Screen: View {
             }
             
         }
+        
         .onAppear{
             locationManager.requestLocation()
             if let location = locationManager.location {
                 vm.fetchWeather(latitude: location.latitude, longitude: location.longitude)
             }
+        }
+    }
+    
+    func removeActivity() {
+        if let activity = Activity.activities.first(where: {(activity: Activity<WheaterAttributes>) in
+            activity.id == activity.id
+        }){
+            Task{
+                await activity.end(using: activity.contentState, dismissalPolicy: .immediate)
+            }
+        }
+    }
+    
+    func addLiveActivity() {
+        let wheaterAtrributes = WheaterAttributes()
+        // Since It dosen't Requires any initial values
+        // If your content struct contains initializer then you pass it here
+        let intialContentState = WheaterAttributes.ContentState(conditionId: vm.weatherViewModel.last?.conditionId ?? 1, nameCity: vm.weatherViewModel.last?.nameCity ?? "City", wind: vm.weatherViewModel.last?.wind ?? 10.8, temp: vm.weatherViewModel.last?.temp ?? 28, hum: vm.weatherViewModel.last?.hum ?? 60, desc: vm.weatherViewModel.last?.desc ?? "Cloudy")
+        
+        do {
+            let activity = try Activity<WheaterAttributes>.request(attributes: wheaterAtrributes, contentState: intialContentState, pushType: nil)
+            currentID = activity.id
+            print("Activity Added Succesfully. id = \(activity.id)")
+        } catch {
+            print(error.localizedDescription)
         }
     }
     

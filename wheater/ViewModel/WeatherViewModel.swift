@@ -7,10 +7,12 @@
 
 import Foundation
 import CoreLocation
+import ActivityKit
 
 class WeatherViewModel : ObservableObject {
     
     @Published var weatherViewModel = [WeatherModel]()
+    @Published var weatherAttributes = [WheaterAttributes.ContentState]()
     
     let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=a1faa9b0d55de0551810719a5bca6491&units=metric"
     
@@ -67,9 +69,11 @@ class WeatherViewModel : ObservableObject {
             let desc = decodedData.weather[0].main
             
             let weather = WeatherModel(conditionId: id, nameCity: name, wind: speedWind, temp: temp, hum: hum, desc: desc)
+            let weatherAttributes = WheaterAttributes.ContentState(conditionId: id, nameCity: name, wind: speedWind, temp: temp, hum: hum, desc: desc)
             
             DispatchQueue.main.async {
                 self.weatherViewModel.append(weather)
+                self.weatherAttributes.append(weatherAttributes)
             }
             
             return weather
